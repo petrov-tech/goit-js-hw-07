@@ -3,7 +3,6 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 const gallery = document.querySelector(".gallery");
-// console.log("🚀 -> gallery", gallery);
 const image = galleryItems
   .map(
     (i) =>
@@ -13,6 +12,7 @@ const image = galleryItems
         class="gallery__image"
         src="${i.preview}"
         alt="${i.description}"
+        data-source='${i.original}'
         ></a>
         </div>`
   )
@@ -20,19 +20,16 @@ const image = galleryItems
 
 gallery.insertAdjacentHTML("afterbegin", image);
 
+
 gallery.addEventListener("click", e => {
     e.preventDefault();
     if (e.target.nodeName !== 'IMG') {
         return;
     }
-    // console.log(e.target);
-    // console.log(e.currentTarget);
+  
+  const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+`);
 
+instance.show();
 });
-
-
-// const instance = basicLightbox.create(`
-//     <img src="${}" width="800" height="600">
-// `);
-
-// instance.show();
