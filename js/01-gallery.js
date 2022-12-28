@@ -3,6 +3,8 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 const gallery = document.querySelector(".gallery");
+
+
 const image = galleryItems
   .map(
     (i) =>
@@ -18,18 +20,27 @@ const image = galleryItems
   )
   .join("");
 
-gallery.insertAdjacentHTML("afterbegin", image);
 
+
+gallery.insertAdjacentHTML("afterbegin", image);
 
 gallery.addEventListener("click", e => {
     e.preventDefault();
     if (e.target.nodeName !== 'IMG') {
         return;
-    }
+  };
   
+  const value = e.target.dataset.source;
   const instance = basicLightbox.create(`
-    <img src="${e.target.dataset.source}" width="800" height="600">
+    <img src="${value}" width="800" height="600">
 `);
 
-instance.show();
+  instance.show();
+  gallery.addEventListener("keydown", onEscKeyPress);
+
+  function onEscKeyPress(e) {
+    if (e.key === "Escape") {
+      instance.close();
+    }
+  }
 });
