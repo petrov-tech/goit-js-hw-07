@@ -11,12 +11,13 @@ const image = galleryItems
     <img class="gallery__image" 
     src="${i.preview}" 
     alt="${i.description}"
-    title="${i.description}"/>
+    "/>
         </a>`
   )
   .join("");
 gallery.insertAdjacentHTML("afterbegin", image);
 
 new SimpleLightbox(".gallery a", {
+  captionsData: 'alt',
   captionDelay: 250,
 });
